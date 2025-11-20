@@ -50,7 +50,7 @@ target_include_directories(picow_bt_example_common INTERFACE
         )
 target_compile_definitions(picow_bt_example_common INTERFACE
         PICO_STDIO_USB_CONNECT_WAIT_TIMEOUT_MS=3000
-        #WANT_HCI_DUMP=1 # This enables btstack debug
+        WANT_HCI_DUMP=1 # This enables btstack debug
         #ENABLE_SEGGER_RTT=1
         )
 if (TARGET pico_btstack_audio_example)
@@ -249,6 +249,8 @@ function(picow_bt_example_poll NAME TARGET_NAME VARIANT_LIB)
                         ${VARIANT_LIB}
                         ${ARGN} # extra libs
                         )
+                pico_enable_stdio_usb(${TARGET_NAME}_poll 1)
+                pico_enable_stdio_uart(${TARGET_NAME}_poll 0)
                 pico_add_extra_outputs(${TARGET_NAME}_poll)
                 example_auto_set_url(${TARGET_NAME}_poll)
         endif()
@@ -264,6 +266,8 @@ function(picow_bt_example_background NAME TARGET_NAME VARIANT_LIB)
                         ${VARIANT_LIB}
                         ${ARGN} # extra libs
                         )
+                pico_enable_stdio_usb(${TARGET_NAME}_background 1)
+                pico_enable_stdio_uart(${TARGET_NAME}_background 0)
                 pico_add_extra_outputs(${TARGET_NAME}_background)
                 example_auto_set_url(${TARGET_NAME}_background)
         endif()
@@ -280,6 +284,8 @@ function(picow_bt_example_freertos NAME TARGET_NAME VARIANT_LIB)
                                 ${VARIANT_LIB}
                                 ${ARGN} # extra libs
                                 )
+                        pico_enable_stdio_usb(${TARGET_NAME}_freertos 1)
+                        pico_enable_stdio_uart(${TARGET_NAME}_freertos 0)
                         pico_add_extra_outputs(${TARGET_NAME}_freertos)
                         example_auto_set_url(${TARGET_NAME}_freertos)
                 endif()
