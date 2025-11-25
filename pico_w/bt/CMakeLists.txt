@@ -39,6 +39,8 @@ target_sources(pico_btstack_sco_demo_util INTERFACE
 add_library(picow_bt_example_common INTERFACE)
 target_sources(picow_bt_example_common INTERFACE
         ${CMAKE_CURRENT_LIST_DIR}/picow_bt_example_common.c
+        ${CMAKE_CURRENT_LIST_DIR}/JLINK_MONITOR.c
+        ${CMAKE_CURRENT_LIST_DIR}/JLINK_MONITOR_ISR_SES.S
         )
 target_link_libraries(picow_bt_example_common INTERFACE
         pico_stdlib
@@ -47,6 +49,7 @@ target_link_libraries(picow_bt_example_common INTERFACE
 target_include_directories(picow_bt_example_common INTERFACE
         ${BT_EXAMPLE_COMMON_DIR}/config # Use our own config
         ${BTSTACK_EXAMPLE_PATH}/
+        ${CMAKE_CURRENT_LIST_DIR} # For JLINK_MONITOR.h
         )
 target_compile_definitions(picow_bt_example_common INTERFACE
         PICO_STDIO_USB_CONNECT_WAIT_TIMEOUT_MS=3000
